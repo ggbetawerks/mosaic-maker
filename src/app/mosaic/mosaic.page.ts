@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-mosaic',
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MosaicPage implements OnInit {
   sourceImageDataURL: string;
+  croppedImageDataURL: string;
   targetWidth = 48;
   targetHeight = 48;
+
+  get ratio(): number {
+    return this.targetWidth / this.targetHeight;
+  }
 
   constructor() {}
 
@@ -27,5 +33,9 @@ export class MosaicPage implements OnInit {
 
   startOver() {
     this.sourceImageDataURL = null;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImageDataURL = event.base64;
   }
 }

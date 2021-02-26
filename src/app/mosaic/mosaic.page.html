@@ -17,7 +17,14 @@
   </ion-button>
 
   <ng-container *ngIf="sourceImageDataURL">
-    <ion-img [src]="sourceImageDataURL"></ion-img>
+    <image-cropper
+      [imageURL]="sourceImageDataURL"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="ratio"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+    ></image-cropper>
+
     <ion-item>
       <ion-label>Target Width</ion-label>
       <ion-input
@@ -36,6 +43,7 @@
       ></ion-input>
       <ion-label>Studs</ion-label>
     </ion-item>
+    <ion-img [src]="croppedImageDataURL"></ion-img>
   </ng-container>
 </ion-content>
 <ion-footer>

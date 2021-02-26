@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { MosaicPageRoutingModule } from './mosaic-routing.module';
 
 import { MosaicPage } from './mosaic.page';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MosaicPageRoutingModule
+    ImageCropperModule,
+    MosaicPageRoutingModule,
   ],
-  declarations: [MosaicPage]
+  declarations: [MosaicPage],
 })
 export class MosaicPageModule {}
