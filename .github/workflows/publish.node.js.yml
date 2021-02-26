@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master, MM-* ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, MM-* ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -25,3 +25,6 @@ jobs:
     - run: npm install
     - run: npm run build:prod
     - run: npm run test:prod
+    - run: npm run publish:site
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
