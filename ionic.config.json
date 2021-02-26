@@ -1,0 +1,7 @@
+{
+  "name": "Mosaic Maker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
