@@ -4,4 +4,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-button expand="full" *ngIf="!sourceImageDataURL">
+    <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+    <!-- <ion-label slot="end">Upload Image</ion-label> -->
+    <input
+      type="file"
+      (change)="loadImageFromDevice($event)"
+      id="file-input"
+      accept="image/png, image/jpeg"
+    />
+  </ion-button>
+
+  <ion-img *ngIf="sourceImageDataURL" [src]="sourceImageDataURL"></ion-img>
+</ion-content>
+<ion-footer>
+  <ion-button expand="full" *ngIf="sourceImageDataURL" (click)="startOver()"
+    >Start Over</ion-button
+  >
+</ion-footer>

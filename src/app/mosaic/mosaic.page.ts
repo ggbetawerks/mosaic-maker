@@ -6,10 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mosaic.page.scss'],
 })
 export class MosaicPage implements OnInit {
+  sourceImageDataURL: string;
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
+  loadImageFromDevice(event) {
+    const file = event.target.files[0];
 
-  ngOnInit() {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      this.sourceImageDataURL = reader.result as string;
+    };
   }
 
+  startOver() {
+    this.sourceImageDataURL = null;
+  }
 }
