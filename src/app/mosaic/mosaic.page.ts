@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MosaicPage implements OnInit {
   sourceImageDataURL: string;
+  targetWidth = 48;
+  targetHeight = 48;
+
   constructor() {}
 
   ngOnInit() {}

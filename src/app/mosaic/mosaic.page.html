@@ -16,7 +16,27 @@
     />
   </ion-button>
 
-  <ion-img *ngIf="sourceImageDataURL" [src]="sourceImageDataURL"></ion-img>
+  <ng-container *ngIf="sourceImageDataURL">
+    <ion-img [src]="sourceImageDataURL"></ion-img>
+    <ion-item>
+      <ion-label>Target Width</ion-label>
+      <ion-input
+        type="number"
+        [required]="true"
+        [(ngModel)]="targetWidth"
+      ></ion-input>
+      <ion-label>Studs</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Target Height</ion-label>
+      <ion-input
+        type="number"
+        [required]="true"
+        [(ngModel)]="targetHeight"
+      ></ion-input>
+      <ion-label>Studs</ion-label>
+    </ion-item>
+  </ng-container>
 </ion-content>
 <ion-footer>
   <ion-button expand="full" *ngIf="sourceImageDataURL" (click)="startOver()"
