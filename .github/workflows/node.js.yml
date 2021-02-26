@@ -24,4 +24,4 @@ jobs:
     - run: npm install -g @ionic/cli
     - run: npm install
     - run: npm run build:prod
-    - run: npm test:prod
+    - run: npm run test:prod
