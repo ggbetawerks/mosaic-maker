@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ionic build --prod -- --base-href='https://ggbetawerks.github.io/mosaic-maker/'",
+    "build:prod": "ng build --prod --base-href='https://ggbetawerks.github.io/mosaic-maker/'",
     "test": "ng test",
     "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
