@@ -7,9 +7,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ionic build --prod --base-href='https://ggbetawerks.github.io/mosaic-maker/'",
     "test": "ng test",
+    "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "publish:site": "npx angular-cli-ghpages --dir=./www --name='Automated Deployment' --email='jonw@ggbetawerks.com'"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +39,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^1.0.0-rc.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
