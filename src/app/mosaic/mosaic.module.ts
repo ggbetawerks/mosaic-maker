@@ -8,6 +8,7 @@ import { MosaicPageRoutingModule } from './mosaic-routing.module';
 
 import { MosaicPage } from './mosaic.page';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ColorUtilitiesService } from '../color-utilities.service';
 
 @NgModule({
   imports: [
@@ -18,5 +19,6 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     MosaicPageRoutingModule,
   ],
   declarations: [MosaicPage],
+  providers: [ColorUtilitiesService],
 })
 export class MosaicPageModule {}
