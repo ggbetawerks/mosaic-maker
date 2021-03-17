@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { Observable } from 'rxjs';
+import { LegoColor } from '../models/color';
+import { ColorListService } from '../services/color-list.service';
+import { ColorUtilitiesService } from '../services/color-utilities.service';
 
 @Component({
   selector: 'app-mosaic',
@@ -12,11 +16,15 @@ export class MosaicPage implements OnInit {
   targetWidth = 48;
   targetHeight = 48;
 
+  colorList$: Observable<LegoColor[]>;
+
   get ratio(): number {
     return this.targetWidth / this.targetHeight;
   }
 
-  constructor() {}
+  constructor(colorUtil: ColorUtilitiesService, colorList: ColorListService) {
+    this.colorList$ = colorList.get();
+  }
 
   ngOnInit() {}
   loadImageFromDevice(event) {

@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ColorUtilitiesService } from './services/color-utilities.service';
+import { ColorListService } from './services/color-list.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { ColorUtilitiesService } from './services/color-utilities.service';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ColorUtilitiesService,
+    ColorListService,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,8 @@
 export interface Color {
-  toRgb(): number[];
-  toLab(): number[];
+  r: number;
+  g: number;
+  b: number;
+  a: number;
 }
 
 export class BasicColor implements Color {
@@ -15,12 +17,6 @@ export class BasicColor implements Color {
     this.b = b;
     this.a = a;
   }
-  toRgb(): number[] {
-    return [this.r, this.g, this.b, this.a];
-  }
-  toLab(): number[] {
-    throw new Error('Method not implemented.');
-  }
 }
 
 export class LegoColor implements Color {
@@ -29,7 +25,7 @@ export class LegoColor implements Color {
   b: number;
   a: number;
 
-  bricklinkName: string;
+  public bricklinkName: string;
   bricklinkId: number;
 
   legoName: string;
@@ -50,12 +46,5 @@ export class LegoColor implements Color {
     this.bricklinkName = bricklinkName;
     this.legoId = legoId;
     this.legoName = legoName;
-  }
-
-  toRgb(): number[] {
-    return [this.r, this.g, this.b, this.a];
-  }
-  toLab(): number[] {
-    throw new Error('Method not implemented.');
   }
 }
