@@ -10,7 +10,7 @@ export interface ColorListState {
 }
 
 export enum ColorListStoreActions {
-  Initialize = 'INIT_STATE',
+  Initialize = 'INIT_COLOR_STATE',
   AddColor = 'ADD_COLOR',
   RemoveColor = 'REMOVE_COLOR',
 }
