@@ -22,8 +22,11 @@ export class MosaicPage implements OnInit {
     return this.targetWidth / this.targetHeight;
   }
 
-  constructor(colorUtil: ColorUtilitiesService, colorList: ColorListService) {
-    this.colorList$ = colorList.get();
+  constructor(
+    private colorUtil: ColorUtilitiesService,
+    private colorList: ColorListService
+  ) {
+    this.colorList$ = colorList.getColorList();
   }
 
   ngOnInit() {}

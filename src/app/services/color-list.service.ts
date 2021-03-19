@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ObservableStore } from '@codewithdan/observable-store';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { LegoColor } from '../models/color';
 
 export interface ColorListState {
@@ -71,6 +72,14 @@ export class ColorListService extends ObservableStore<ColorListState> {
     super({ trackStateHistory: true });
     this.setState(initialState, ColorListStoreActions.Initialize);
   }
+  public getColorList(): Observable<LegoColor[]> {
+    return this.stateChanged.pipe(
+      map((state) => {
+        return state.customColors.concat(state.providedColors);
+      })
+    );
+  }
+
   public get(): Observable<LegoColor[]> {
     const { customColors, providedColors } = this.getState();
     return of(providedColors.concat(customColors));
