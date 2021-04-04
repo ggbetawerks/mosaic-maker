@@ -14,6 +14,8 @@ export enum ColorListStoreActions {
   Initialize = 'INIT_COLOR_STATE',
   AddColor = 'ADD_COLOR',
   RemoveColor = 'REMOVE_COLOR',
+  SelectColor = 'SELECT_COLOR',
+  DeselectColor = 'DESELECT_COLOR',
 }
 
 @Injectable({
@@ -23,7 +25,22 @@ export class ColorListService extends ObservableStore<ColorListState> {
   constructor() {
     const initialState: ColorListState = {
       customColors: [],
-      selectedColors: [],
+      selectedColors: [
+        new LegoColor([255, 255, 255, 255], 'White', 1),
+        new LegoColor([175, 181, 199, 255], 'Light Bluish Grey', 86),
+        new LegoColor([89, 93, 96, 255], 'Dark Bluish Grey', 85),
+        new LegoColor([33, 33, 33, 255], 'Black', 11),
+        new LegoColor([106, 14, 21, 255], 'Dark Red', 59),
+        new LegoColor([179, 0, 6, 255], 'Red', 5),
+        new LegoColor([137, 53, 29, 255], 'Reddish Brown', 88),
+        new LegoColor([222, 198, 156, 255], 'Tan', 2),
+        new LegoColor([255, 126, 20, 255], 'Orange', 4),
+        new LegoColor([247, 209, 23, 255], 'Yellow', 3),
+        new LegoColor([0, 100, 46, 255], 'Green', 6),
+        new LegoColor([20, 48, 68, 255], 'Dark Blue', 63),
+        new LegoColor([0, 87, 166, 255], 'Blue', 7),
+        new LegoColor([97, 175, 255, 255], 'Medium Blue', 42),
+      ],
       providedColors: [
         // Current 2021 active solid colors per Bricklink
         new LegoColor([255, 255, 255, 255], 'White', 1),
@@ -79,6 +96,13 @@ export class ColorListService extends ObservableStore<ColorListState> {
       })
     );
   }
+  public getSelectedColorList(): Observable<LegoColor[]> {
+    return this.stateChanged.pipe(
+      map((state) => {
+        return state.selectedColors;
+      })
+    );
+  }
 
   public get(): Observable<LegoColor[]> {
     const { customColors, providedColors } = this.getState();
@@ -104,6 +128,34 @@ export class ColorListService extends ObservableStore<ColorListState> {
     this.setState(
       { customColors: newCustomColors },
       ColorListStoreActions.RemoveColor
+    );
+  }
+
+  public addSelected(color: LegoColor) {
+    const state = this.getState();
+    state.selectedColors.push(color);
+    this.setState(
+      { selectedColors: state.selectedColors },
+      ColorListStoreActions.SelectColor
+    );
+  }
+
+  public removeSelected(color: LegoColor) {
+    const state = this.getState();
+    const newSelectedColors = state.selectedColors.map((c) => {
+      if (
+        c != null &&
+        (color.r !== c.r ||
+          color.g !== c.g ||
+          color.b !== c.b ||
+          color.a !== c.a)
+      ) {
+        return c;
+      }
+    });
+    this.setState(
+      { selectedColors: newSelectedColors },
+      ColorListStoreActions.DeselectColor
     );
   }
 }
