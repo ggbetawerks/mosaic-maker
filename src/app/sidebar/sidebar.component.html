@@ -1,0 +1,44 @@
+<ng-container>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Colors</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item
+          *ngFor="let item of fullColorList$ | async; trackBy: colorTrackByFn"
+        >
+          <ion-checkbox
+            slot="start"
+            [checked]="item.isSelected"
+            (ionChange)="colorClicked($event, item.color)"
+          ></ion-checkbox>
+          <ion-label>
+            <span
+              style="width: 22px; height: 22px; margin-right: 5px"
+              [style.background]="
+                'rgba(' +
+                item.color.r +
+                ',' +
+                item.color.g +
+                ',' +
+                item.color.b +
+                ',' +
+                item.color.a +
+                ')'
+              "
+              >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+            >
+            {{ item.color.bricklinkName }}({{ item.color.bricklinkId }})
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Algorithm</ion-card-title>
+  </ion-card-header>
+  <ion-card-content> Choice of algorithms </ion-card-content>
+</ion-card>
