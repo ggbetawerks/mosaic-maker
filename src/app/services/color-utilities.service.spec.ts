@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import Decimal from 'decimal.js';
 import { BasicColor } from '../models/color';
 
 import { ColorUtilitiesService } from './color-utilities.service';
@@ -99,14 +98,10 @@ describe('ColorUtilitiesService', () => {
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(95.05).toPrecision(6)
-        );
-        expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(100.0).toPrecision(6)
-        );
+        expect(val[0].toPrecision(6)).toEqual((95.05).toPrecision(6));
+        expect(val[1].toPrecision(6)).toEqual((100.0).toPrecision(6));
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(108.89999999999999).toPrecision(6)
+          (108.89999999999999).toPrecision(6)
         );
       });
 
@@ -115,9 +110,9 @@ describe('ColorUtilitiesService', () => {
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
-        expect(val[1].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
-        expect(val[2].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
+        expect(val[0].toPrecision(6)).toEqual((0).toPrecision(6));
+        expect(val[1].toPrecision(6)).toEqual((0).toPrecision(6));
+        expect(val[2].toPrecision(6)).toEqual((0).toPrecision(6));
       });
 
       it('should convert red to expected values', () => {
@@ -125,14 +120,10 @@ describe('ColorUtilitiesService', () => {
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(41.24).toPrecision(6)
-        );
-        expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(21.26).toPrecision(6)
-        );
+        expect(val[0].toPrecision(6)).toEqual((41.24).toPrecision(6));
+        expect(val[1].toPrecision(6)).toEqual((21.26).toPrecision(6));
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(1.9300000000000002).toPrecision(6)
+          (1.9300000000000002).toPrecision(6)
         );
       });
 
@@ -142,13 +133,13 @@ describe('ColorUtilitiesService', () => {
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
         expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(25.42558533367896).toPrecision(6)
+          (25.42558533367896).toPrecision(6)
         );
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(31.7058293051712).toPrecision(6)
+          (31.7058293051712).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(31.165323549892495).toPrecision(6)
+          (31.165323549892495).toPrecision(6)
         );
       });
     });
@@ -156,75 +147,61 @@ describe('ColorUtilitiesService', () => {
     describe('XYZ To Lab', () => {
       // Test values from http://colormine.org/color-converter
       it('should convert white XYZ to expected values', () => {
-        const val = service.xyzToLab([
-          new Decimal(95.05),
-          new Decimal(100.0),
-          new Decimal(108.89999999999999),
-        ]);
+        const val = service.xyzToLab([95.05, 100.0, 108.89999999999999]);
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(100.0).toPrecision(6)
-        );
+        expect(val[0].toPrecision(6)).toEqual((100.0).toPrecision(6));
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(0.00526049995830391).toPrecision(6)
+          (0.00526049995830391).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(-0.010408184525267927).toPrecision(6)
+          (-0.010408184525267927).toPrecision(6)
         );
       });
       it('should convert black XYZ to expected values', () => {
-        const val = service.xyzToLab([
-          new Decimal(0),
-          new Decimal(0),
-          new Decimal(0),
-        ]);
+        const val = service.xyzToLab([0, 0, 0]);
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
-        expect(val[1].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
-        expect(val[2].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
+        expect(val[0].toPrecision(6)).toEqual((0).toPrecision(6));
+        expect(val[1].toPrecision(6)).toEqual((0).toPrecision(6));
+        expect(val[2].toPrecision(6)).toEqual((0).toPrecision(6));
       });
 
       it('should convert red XYZ to expected values', () => {
-        const val = service.xyzToLab([
-          new Decimal(41.24),
-          new Decimal(21.26),
-          new Decimal(1.9300000000000002),
-        ]);
+        const val = service.xyzToLab([41.24, 21.26, 1.9300000000000002]);
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
         expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(53.23288178584245).toPrecision(6)
+          (53.23288178584245).toPrecision(6)
         );
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(80.10930952982204).toPrecision(6)
+          (80.10930952982204).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(67.22006831026425).toPrecision(6)
+          (67.22006831026425).toPrecision(6)
         );
       });
 
       it('should convert sand green XYZ to expected values', () => {
         const val = service.xyzToLab([
-          new Decimal(25.42558533367896),
-          new Decimal(31.7058293051712),
-          new Decimal(31.165323549892495),
+          25.42558533367896,
+          31.7058293051712,
+          31.165323549892495,
         ]);
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
         expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(63.099006424305955).toPrecision(6)
+          (63.099006424305955).toPrecision(6)
         );
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(-18.777141524588203).toPrecision(6)
+          (-18.777141524588203).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(4.57200118920571).toPrecision(6)
+          (4.57200118920571).toPrecision(6)
         );
       });
     });
@@ -234,14 +211,12 @@ describe('ColorUtilitiesService', () => {
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(100.0).toPrecision(6)
-        );
+        expect(val[0].toPrecision(6)).toEqual((100.0).toPrecision(6));
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(0.00526049995830391).toPrecision(6)
+          (0.00526049995830391).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(-0.010408184525267927).toPrecision(6)
+          (-0.010408184525267927).toPrecision(6)
         );
       });
 
@@ -250,9 +225,9 @@ describe('ColorUtilitiesService', () => {
 
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
-        expect(val[0].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
-        expect(val[1].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
-        expect(val[2].toPrecision(6)).toEqual(new Decimal(0).toPrecision(6));
+        expect(val[0].toPrecision(6)).toEqual((0).toPrecision(6));
+        expect(val[1].toPrecision(6)).toEqual((0).toPrecision(6));
+        expect(val[2].toPrecision(6)).toEqual((0).toPrecision(6));
       });
 
       it('should convert red to expected values', () => {
@@ -261,13 +236,13 @@ describe('ColorUtilitiesService', () => {
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
         expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(53.23288178584245).toPrecision(6)
+          (53.23288178584245).toPrecision(6)
         );
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(80.10930952982204).toPrecision(6)
+          (80.10930952982204).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(67.22006831026425).toPrecision(6)
+          (67.22006831026425).toPrecision(6)
         );
       });
 
@@ -277,13 +252,13 @@ describe('ColorUtilitiesService', () => {
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
         expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(63.099006424305955).toPrecision(6)
+          (63.099006424305955).toPrecision(6)
         );
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(-18.777141524588203).toPrecision(6)
+          (-18.777141524588203).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(4.57200118920571).toPrecision(6)
+          (4.57200118920571).toPrecision(6)
         );
       });
 
@@ -293,13 +268,13 @@ describe('ColorUtilitiesService', () => {
         expect(val).toBeTruthy();
         expect(val.length).toEqual(3);
         expect(val[0].toPrecision(6)).toEqual(
-          new Decimal(39.2365720380794).toPrecision(6)
+          (39.2365720380794).toPrecision(6)
         );
         expect(val[1].toPrecision(6)).toEqual(
-          new Decimal(-0.9067353899047115).toPrecision(6)
+          (-0.9067353899047115).toPrecision(6)
         );
         expect(val[2].toPrecision(6)).toEqual(
-          new Decimal(-2.2664540037550585).toPrecision(6)
+          (-2.2664540037550585).toPrecision(6)
         );
       });
     });
