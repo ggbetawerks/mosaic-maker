@@ -278,5 +278,24 @@ describe('ColorUtilitiesService', () => {
         );
       });
     });
+
+    describe('Lab Distance', () => {
+      it('should return a valid number', () => {
+        const val = service.labDistance(
+          new BasicColor([255, 0, 0, 255]),
+          new BasicColor([0, 255, 255, 255])
+        );
+        expect(val).toBeDefined();
+        expect(val).toBeGreaterThan(100);
+      });
+      it('should return a  number greater than or equal to 0', () => {
+        const val = service.labDistance(
+          new BasicColor([0, 0, 0, 255]),
+          new BasicColor([255, 255, 255, 255])
+        );
+        expect(val).toBeDefined();
+        expect(val).toBeGreaterThanOrEqual(0);
+      });
+    });
   });
 });
