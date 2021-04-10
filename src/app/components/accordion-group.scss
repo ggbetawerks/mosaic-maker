@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+.blocker {
+  background: var(--ion-card-background);
+  height: 50px;
+  will-change: transform;
+}
