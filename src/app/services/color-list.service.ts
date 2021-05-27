@@ -79,7 +79,7 @@ export class ColorListService extends ObservableStore<ColorListState> {
         new LegoColor([159, 195, 233, 255], 'Bright Light Blue', 105),
         new LegoColor([90, 113, 132, 255], 'Sand Blue', 55),
         new LegoColor([95, 38, 131, 255], 'Dark Purple', 89),
-        new LegoColor([136, 94, 158, 255], 'Medium Lavendar', 157),
+        new LegoColor([136, 94, 158, 255], 'Medium Lavender', 157),
         new LegoColor([177, 140, 191, 255], 'Lavender', 154),
         new LegoColor([181, 41, 82, 255], 'Magenta', 71),
         new LegoColor([200, 112, 128, 255], 'Dark Pink', 47),

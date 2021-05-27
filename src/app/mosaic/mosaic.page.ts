@@ -6,6 +6,7 @@ import { LegoColor } from '../models/color';
 import { ColorListService } from '../services/color-list.service';
 import { ColorUtilitiesService } from '../services/color-utilities.service';
 import { Image, InterpolationAlgorithm } from 'image-js';
+import { Point } from '../shared';
 
 @Component({
   selector: 'app-mosaic',
@@ -13,18 +14,26 @@ import { Image, InterpolationAlgorithm } from 'image-js';
   styleUrls: ['./mosaic.page.scss'],
 })
 export class MosaicPage implements OnInit {
-  sourceImageDataURL: string;
+  sourceImageDataURL: string = null;
 
-  croppedImageDataSubject$: BehaviorSubject<string> = new BehaviorSubject<string>(
-    ''
-  );
+  croppedImageDataSubject$: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
   // croppedImageDataURL: string;
   mosaicImageDataURL$: Observable<string>;
+  mosaicPoints$: Observable<Point[]>;
   targetWidth = 48;
   targetHeight = 48;
 
   colorList$: Observable<LegoColor[]>;
   selectedColorList$: Observable<LegoColor[]>;
+
+  backgroundColor: LegoColor = new LegoColor(
+    [175, 181, 199, 255],
+    'Light Bluish Grey',
+    86
+  );
+  isTile = false;
+  isRound = false;
 
   get ratio(): number {
     return this.targetWidth / this.targetHeight;
@@ -33,11 +42,13 @@ export class MosaicPage implements OnInit {
   constructor(
     private colorUtil: ColorUtilitiesService,
     private colorList: ColorListService
-  ) {
-    this.colorList$ = colorList.getColorList();
-    this.selectedColorList$ = colorList.getSelectedColorList();
+  ) {}
 
-    const z = combineLatest([
+  ngOnInit() {
+    this.colorList$ = this.colorList.getColorList();
+    this.selectedColorList$ = this.colorList.getSelectedColorList();
+
+    const newImage = combineLatest([
       this.croppedImageDataSubject$,
       this.selectedColorList$,
     ]).pipe(
@@ -45,10 +56,20 @@ export class MosaicPage implements OnInit {
         return await this.resizeImage(image, colors);
       })
     );
-    this.mosaicImageDataURL$ = z;
-  }
+    const justImage = newImage.pipe(
+      switchMap(async ([image, points]) => {
+        return image;
+      })
+    );
+    const justPoints = newImage.pipe(
+      switchMap(async ([image, points]) => {
+        return points;
+      })
+    );
 
-  ngOnInit() {}
+    this.mosaicImageDataURL$ = justImage;
+    this.mosaicPoints$ = justPoints;
+  }
   loadImageFromDevice(event) {
     const file = event.target.files[0];
 
@@ -69,34 +90,46 @@ export class MosaicPage implements OnInit {
     this.croppedImageDataSubject$.next(event.base64);
   }
 
-  async resizeImage(croppedImage: string, colors: LegoColor[]) {
+  async resizeImage(
+    croppedImage: string,
+    colors: LegoColor[]
+  ): Promise<[string, Point[]]> {
     if (croppedImage.length > 0) {
       const cImage = await Image.load(croppedImage);
       const resized = cImage.resize({
         width: this.targetWidth,
-        // interpolation: validInterpolations.nearestneighbor,
+        // interpolation: validInterpolations.nearestNeighbor,
       });
 
-      await this.algorithmNearestColor(resized, colors);
+      const points = await this.algorithmNearestColor(resized, colors);
 
-      return resized.toDataURL();
+      return [resized.toDataURL(), points];
     }
-    return '';
+    return ['', []];
   }
 
   private algorithmNearestColor(image: Image, colors: LegoColor[]) {
+    const points: Point[] = [];
     for (let y = 0; y < image.height; y++) {
       for (let x = 0; x < image.width; x++) {
         const color = image.getPixelXY(x, y);
-        const newColor = this.getClosestColor(
+        const newColor = this.getClosestColorLab(
           colors,
           color[0],
           color[1],
           color[2]
         );
-        image.setPixelXY(x, y, newColor);
+
+        points.push({ x, y, color: newColor });
+        image.setPixelXY(x, y, [
+          newColor.r,
+          newColor.g,
+          newColor.b,
+          newColor.a,
+        ]);
       }
     }
+    return points;
   }
 
   private getClosestColor(
@@ -104,29 +137,54 @@ export class MosaicPage implements OnInit {
     red: number,
     green: number,
     blue: number
-  ): number[] {
+  ): LegoColor {
     let distance = 99999999;
-    let color = [0, 0, 0, 255];
+    // let color = [0, 0, 0, 255];
+    let legoColor: LegoColor;
     // console.log(colors);
     colors.forEach((element) => {
       if (element != null) {
-        const newDistance = Math.sqrt(
-          Math.pow(red - element.r, 2) +
-            Math.pow(green - element.g, 2) +
-            Math.pow(blue - element.b, 2)
+        const newDistance = this.colorUtil.rgbDistance(
+          { r: red, g: green, b: blue, a: 255 },
+          element
         );
 
-        /*const newDistance =
-        Math.abs(red - element.r) +
-        Math.abs(green - element.g) +
-        Math.abs(blue - element.b);*/
         if (newDistance < distance) {
           distance = newDistance;
-          color = [element.r, element.g, element.b, 255];
+          // color = [element.r, element.g, element.b, 255];
+          legoColor = element;
         }
       }
     });
 
-    return color;
+    return legoColor;
+  }
+
+  private getClosestColorLab(
+    colors: LegoColor[],
+    red: number,
+    green: number,
+    blue: number
+  ): LegoColor {
+    let distance = 99999999;
+    // let color = [0, 0, 0, 255];
+    let legoColor: LegoColor;
+    // console.log(colors);
+    colors.forEach((element) => {
+      if (element != null) {
+        const newDistance = this.colorUtil.labDistance(
+          { r: red, g: green, b: blue, a: 255 },
+          element
+        );
+
+        if (newDistance < distance) {
+          distance = newDistance;
+          // color = [element.r, element.g, element.b, 255];
+          legoColor = element;
+        }
+      }
+    });
+
+    return legoColor;
   }
 }

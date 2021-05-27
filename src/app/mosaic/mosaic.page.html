@@ -24,7 +24,6 @@
       format="png"
       (imageCropped)="imageCropped($event)"
     ></image-cropper>
-
     <ion-item>
       <ion-label>Target Width</ion-label>
       <ion-input
@@ -43,20 +42,20 @@
       ></ion-input>
       <ion-label>Studs</ion-label>
     </ion-item>
-    <!-- <ion-img [src]="croppedImageDataSubject$ | async"></ion-img>
-    <hr /> -->
-    <ion-img [src]="mosaicImageDataURL$ |async"></ion-img>
-    <!-- <hr /> -->
-    <!--<ion-list>
-      <ion-item *ngFor="let color of colorList$ | async">
-        <span
-          style="width: 22px; height: 22px; margin-right: 5px"
-          [style.background]="'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')'"
-          >&nbsp;</span
-        >
-        {{color.bricklinkName}}({{color.bricklinkId}})</ion-item
-      >
-    </ion-list>-->
+
+    <ng-container *ngIf="mosaicImageDataURL$ |async as mosaicUrl">
+      <app-mosaic-image
+        [width]="1000"
+        [height]="1000"
+        [points]="mosaicPoints$ | async"
+        [backgroundColor]="backgroundColor"
+        [isRound]="isRound"
+        [isTile]="isTile"
+      ></app-mosaic-image>
+      <ion-img [src]="mosaicUrl"></ion-img>
+      <!--This empty item seems to fix the image not necessarily showing up-->
+      <ion-item></ion-item>
+    </ng-container>
   </ng-container>
 </ion-content>
 <ion-footer>
