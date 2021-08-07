@@ -38,6 +38,10 @@
     "@angular/compiler": "~12.2.0",
     "@angular/compiler-cli": "~12.2.0",
     "@angular/language-service": "~12.2.0",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.15.0",
     "@capacitor/cli": "^3.1.2",
     "@ionic/angular-toolkit": "^4.0.0",
     "@types/jasmine": "~3.6.0",
@@ -58,5 +62,13 @@
     "tslint": "~6.1.0",
     "typescript": "~4.2.4"
   },
-  "description": "A Brick Mosaic Maker"
+  "description": "A Brick Mosaic Maker",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
 }
