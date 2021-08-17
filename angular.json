@@ -39,7 +39,17 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "allowedCommonJsDependencies": [
+              "jpeg-js",
+              "image-type",
+              "@codewithdan/observable-store-extensions",
+              "@codewithdan/observable-store",
+              "ml-kernel",
+              "robust-point-in-polygon",
+              "is-integer",
+              "web-worker-manager"
+            ]
           },
           "configurations": {
             "production": {
