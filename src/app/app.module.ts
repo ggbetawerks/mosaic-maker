@@ -14,21 +14,20 @@ import { AccordionGroupComponent } from './components/accordion-group';
 import { AppTemplateDirective } from './components/app-template';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    AccordionItemComponent,
-    AccordionGroupComponent,
-    AppTemplateDirective,
-  ],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
-  exports: [AppTemplateDirective],
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    ColorUtilitiesService,
-    ColorListService,
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        SidebarComponent,
+        AccordionItemComponent,
+        AccordionGroupComponent,
+        AppTemplateDirective,
+    ],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+    exports: [AppTemplateDirective],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        ColorUtilitiesService,
+        ColorListService,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
