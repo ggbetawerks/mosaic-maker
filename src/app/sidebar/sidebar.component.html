@@ -1,46 +1,42 @@
 <ng-container>
-  <app-accordion-group>
-    <app-accordion-item>
-      <ng-template appTemplate="header">Colors</ng-template>
-      <ng-template appTemplate="content">
-        <ion-list>
-          <ion-item
-            *ngFor="let item of fullColorList$ | async; trackBy: colorTrackByFn"
-          >
-            <ion-checkbox
-              slot="start"
-              [checked]="item.isSelected"
-              (ionChange)="colorClicked($event, item.color)"
-            ></ion-checkbox>
-            <ion-label>
-              <span
-                style="width: 22px; height: 22px; margin-right: 5px"
-                [style.background]="
-                  'rgba(' +
-                  item.color.r +
-                  ',' +
-                  item.color.g +
-                  ',' +
-                  item.color.b +
-                  ',' +
-                  item.color.a +
-                  ')'
-                "
-                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
-              >
-              {{ item.color.bricklinkName }}({{ item.color.bricklinkId }})
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ng-template>
-    </app-accordion-item>
-    <app-accordion-item>
-      <ng-template appTemplate="header">Algorithms</ng-template>
-      <ng-template appTemplate="content">
-        <ion-list>
-          <ion-item>Choice of algorithms</ion-item>
-        </ion-list>
-      </ng-template>
-    </app-accordion-item>
-  </app-accordion-group>
+  <ion-accordion-group>
+    <ion-accordion value="colors">
+      <ion-item slot="header"><ion-label>Colors</ion-label></ion-item>
+      <ion-list slot="content">
+        <ion-item
+          *ngFor="let item of fullColorList$ | async; trackBy: colorTrackByFn"
+        >
+          <ion-checkbox
+            slot="start"
+            [checked]="item.isSelected"
+            (ionChange)="colorClicked($event, item.color)"
+          ></ion-checkbox>
+          <ion-label>
+            <span
+              style="width: 22px; height: 22px; margin-right: 5px"
+              [style.background]="
+                'rgba(' +
+                item.color.r +
+                ',' +
+                item.color.g +
+                ',' +
+                item.color.b +
+                ',' +
+                item.color.a +
+                ')'
+              "
+              >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+            >
+            {{ item.color.bricklinkName }}({{ item.color.bricklinkId }})
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-accordion>
+    <ion-accordion value="algorithms">
+      <ion-item slot="header">Algorithms</ion-item>
+      <ion-list slot="content">
+        <ion-item>Choice of algorithms</ion-item>
+      </ion-list>
+    </ion-accordion>
+  </ion-accordion-group>
 </ng-container>
